@@ -33,7 +33,6 @@ public class KangarooController {
     }
     @PutMapping("/kangaroos/{id}")
     public Kangaroo updateKangaroo(@RequestBody Kangaroo kangaroo,@PathVariable Integer id){
-        Kangaroo matchedKangaroo = kangaroos.get(id);
          kangaroos.put(kangaroo.getId(),kangaroo);
          return kangaroos.get(id);
     }
@@ -41,6 +40,5 @@ public class KangarooController {
     @DeleteMapping("/kangaroos/{id}")
     public void deleteKangaroo(@PathVariable Integer id){
          kangaroos.remove(id);
-
     }
 }
