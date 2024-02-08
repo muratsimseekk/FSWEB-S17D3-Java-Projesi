@@ -1,6 +1,7 @@
 package com.workintech.springinitial.springbasics.zoo.controller;
 
 import com.workintech.springinitial.springbasics.zoo.entity.Kangaroo;
+import com.workintech.springinitial.springbasics.zoo.exceptions.KangarooValidation;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,16 @@ public class KangarooController {
     }
     @GetMapping("/kangaroos/{id}")
     public Kangaroo getKangarooByID(@PathVariable Integer id){
+        KangarooValidation.isIdNotValid(id);
+        KangarooValidation.isKangarooNotExist(kangaroos,id);
         return kangaroos.get(id);
+
     }
 
     @PostMapping("/kangaroos")
     public Kangaroo addKangaroo(@RequestBody Kangaroo kangaroo){
         kangaroos.put(kangaroo.getId(),kangaroo);
+        KangarooValidation.isKangarooCredentialValid(kangaroo);
         return kangaroo;
     }
     @PutMapping("/kangaroos/{id}")
